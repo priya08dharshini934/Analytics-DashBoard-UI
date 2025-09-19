@@ -24,6 +24,10 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { motion } from "framer-motion";
 import {
   LineChart,
@@ -48,7 +52,12 @@ export default function Dashboard() {
 
   const handleDrawerToggle = () => setMobileOpen((prev) => !prev);
 
-  const navItems = ["Home", "Analytics", "Reports", "Settings"];
+  const navItems = [
+    { label: "Home", icon: <HomeIcon color="primary" /> },
+    { label: "Analytics", icon: <AnalyticsIcon color="primary" /> },
+    { label: "Reports", icon: <AssessmentIcon color="primary" /> },
+    { label: "Settings", icon: <SettingsIcon color="primary" /> },
+  ];
 
   const drawer = (
     <Box sx={{ p: 2 }}>
@@ -57,12 +66,12 @@ export default function Dashboard() {
       </Typography>
 
       <List>
-        {navItems.map((text) => (
+        {navItems.map((item) => (
           <motion.div
-            key={text}
+            key={item.label}
             whileHover={{ scale: 1.03 }}
             animate={
-              activeNav === text
+              activeNav === item.label
                 ? { backgroundColor: "rgba(25,118,210,0.06)" }
                 : { backgroundColor: "transparent" }
             }
@@ -71,16 +80,18 @@ export default function Dashboard() {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
-                  setActiveNav(text);
+                  setActiveNav(item.label);
                   setMobileOpen(false);
                 }}
               >
+                {item.icon}
                 <ListItemText
-                  primary={text}
-                  primaryTypographyProps={{
-                    fontWeight: activeNav === text ? "bold" : "normal",
-                    color: activeNav === text ? "primary.main" : "inherit",
+                  primary={item.label}
+                  primaryTextProps={{
+                    fontWeight: activeNav === item.label ? "bold" : "normal",
+                    color: activeNav === item.label ? "primary.main" : "inherit",
                   }}
+                  sx={{ ml: 2 }}
                 />
               </ListItemButton>
             </ListItem>
@@ -320,6 +331,10 @@ function ReportsPage() {
     { name: "User Growth", date: "2025-04-15", status: "Pending" },
   ];
 
+  const headerBg = themeMode === "dark" ? "#263238" : "#e3f2fd";
+  const headerColor = themeMode === "dark" ? "#fff" : "#1976d2";
+  const cellColor = themeMode === "dark" ? "#fff" : undefined;
+
   return (
     <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
       <Typography variant="h5" gutterBottom>
@@ -328,18 +343,18 @@ function ReportsPage() {
 
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 16 }}>
         <thead>
-          <tr style={{ background: "#e3f2fd" }}>
-            <th style={{ padding: 8, textAlign: "left" }}>Report Name</th>
-            <th style={{ padding: 8, textAlign: "left" }}>Date</th>
-            <th style={{ padding: 8, textAlign: "left" }}>Status</th>
+          <tr style={{ background: headerBg }}>
+            <th style={{ padding: 8, textAlign: "left", color: headerColor }}>Report Name</th>
+            <th style={{ padding: 8, textAlign: "left", color: headerColor }}>Date</th>
+            <th style={{ padding: 8, textAlign: "left", color: headerColor }}>Status</th>
           </tr>
         </thead>
         <tbody>
           {reports.map((r) => (
             <tr key={r.name}>
-              <td style={{ padding: 8 }}>{r.name}</td>
-              <td style={{ padding: 8 }}>{r.date}</td>
-              <td style={{ padding: 8 }}>{r.status}</td>
+              <td style={{ padding: 8, color: cellColor }}>{r.name}</td>
+              <td style={{ padding: 8, color: cellColor }}>{r.date}</td>
+              <td style={{ padding: 8, color: cellColor }}>{r.status}</td>
             </tr>
           ))}
         </tbody>
@@ -377,7 +392,6 @@ function SettingsPage({ setThemeMode, themeMode }: SettingsPageProps) {
           <label htmlFor="theme" style={{ display: "block", marginBottom: 8 }}>
             Theme
           </label>
-          {/* MUI Select for better dropdown UI */}
           <Box sx={{ minWidth: 120 }}>
             <ThemeDropdown value={themeMode} onChange={handleThemeChange} />
           </Box>
