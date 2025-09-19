@@ -87,7 +87,7 @@ export default function Dashboard() {
                 {item.icon}
                 <ListItemText
                   primary={item.label}
-                  primaryTextProps={{
+                  primaryTypographyProps={{
                     fontWeight: activeNav === item.label ? "bold" : "normal",
                     color: activeNav === item.label ? "primary.main" : "inherit",
                   }}
