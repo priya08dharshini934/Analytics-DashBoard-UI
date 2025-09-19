@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Box,
@@ -367,9 +368,8 @@ export default function Dashboard() {
     const [notifications, setNotifications] = useState(true);
     const [selectedTheme, setSelectedTheme] = useState(themeMode);
 
-    // Next.js router for query param updates
-    const { useRouter } = require('next/navigation');
-    const router = useRouter();
+  // Next.js router for query param updates
+  const router = useRouter();
 
     // Handle theme dropdown change (local only)
     const handleThemeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
