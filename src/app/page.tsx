@@ -247,15 +247,9 @@ export default function Dashboard() {
 
     // Render dashboard cards
     return (
-      <Grid container spacing={3}>
+      <Grid container columns={12} columnSpacing={3}>
         {cards.map((card, index) => (
-          <Grid
-            item
-            xs={12}
-            md={6}
-            lg={4}
-            key={card.id}
-          >
+          <Box key={card.id} sx={{ gridColumn: { xs: 'span 12', md: 'span 6', lg: 'span 4' }, mb: 3 }}>
             <motion.div
               draggable
               onDragStart={() => startDrag(index)}
@@ -289,7 +283,7 @@ export default function Dashboard() {
                 </Typography>
               </Paper>
             </motion.div>
-          </Grid>
+          </Box>
         ))}
       </Grid>
     );
@@ -369,15 +363,28 @@ export default function Dashboard() {
     themeMode: "light" | "dark";
   }
   function SettingsPage({ setThemeMode, themeMode }: SettingsPageProps) {
+    // Local state for settings
     const [notifications, setNotifications] = useState(true);
+    const [selectedTheme, setSelectedTheme] = useState(themeMode);
 
+    // Next.js router for query param updates
+    const { useRouter } = require('next/navigation');
+    const router = useRouter();
+
+    // Handle theme dropdown change (local only)
     const handleThemeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
-      setThemeMode(e.target.value as "light" | "dark");
+      setSelectedTheme(e.target.value as "light" | "dark");
     };
 
+    // Save settings: update theme, query params
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      // you can persist settings here
+      setThemeMode(selectedTheme);
+      const params = new URLSearchParams({
+        theme: selectedTheme,
+        notifications: notifications ? 'on' : 'off',
+      });
+      router.replace(`?${params.toString()}`);
       alert("Settings saved");
     };
 
@@ -388,15 +395,17 @@ export default function Dashboard() {
         </Typography>
 
         <form onSubmit={handleSubmit}>
+          {/* Theme selection */}
           <div style={{ marginBottom: 16 }}>
             <label htmlFor="theme" style={{ display: "block", marginBottom: 8 }}>
               Theme
             </label>
             <Box sx={{ minWidth: 120 }}>
-              <ThemeDropdown value={themeMode} onChange={handleThemeChange} />
+              <ThemeDropdown value={selectedTheme} onChange={handleThemeChange} />
             </Box>
           </div>
 
+          {/* Notifications toggle */}
           <div style={{ marginBottom: 16 }}>
             <FormControlLabel
               control={
@@ -443,7 +452,7 @@ export default function Dashboard() {
           id="theme-select"
           value={value}
           label="Theme"
-          onChange={onChange}
+          onChange={(event) => onChange(event as React.ChangeEvent<{ value: unknown }>)}
           sx={{ background: "background.paper" }}
         >
           <MenuItem value="light">Light</MenuItem>
