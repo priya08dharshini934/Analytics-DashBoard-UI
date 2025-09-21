@@ -148,10 +148,10 @@ export default function DashboardContent() {
                   </Typography>
                 </Box>
                 {/* Top row: Stat cards and Projections vs Actuals */}
-                <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, width: '100%' }}>
+                <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
+                  <Box sx={{ display: 'flex', flex: 2, gap: 2 }}>
                     {STATS.map((stat: typeof STATS[number]) => (
-                      <Box key={stat.label} sx={{ flex: '1 1 22%', minWidth: 180 }}>
+                      <Box key={stat.label} sx={{ flex: 1, minWidth: 180 }}>
                         <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
                           <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                           <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
@@ -160,7 +160,7 @@ export default function DashboardContent() {
                       </Box>
                     ))}
                   </Box>
-                  <Box sx={{ minWidth: 340, maxWidth: 420, width: '100%' }}>
+                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
                     <CardPaper
                       sx={{
                         px: 4.5,
@@ -262,10 +262,10 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Box>
-                </Grid>
+                </Box>
                 {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
-                <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid item xs={12} md={8}>
+                <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
+                  <Box sx={{ flex: 2 }}>
                     <CardPaper sx={{ p: 3.5, minHeight: 220, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
@@ -336,8 +336,8 @@ export default function DashboardContent() {
                         </svg>
                       </Box>
                     </CardPaper>
-                  </Grid>
-                  <Grid item xs={12} md={4}>
+                  </Box>
+                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
                     <CardPaper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
@@ -362,11 +362,11 @@ export default function DashboardContent() {
                         ))}
                       </Box>
                     </CardPaper>
-                  </Grid>
-                </Grid>
+                  </Box>
+                </Box>
                 {/* Bottom row: Top Selling Products (left), Total Sales (right) */}
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                  <Grid item xs={12} md={8}>
+                <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+                  <Box sx={{ flex: 2 }}>
                     <CardPaper sx={{ p: 3, mt: 0 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Top Selling Products
@@ -393,8 +393,8 @@ export default function DashboardContent() {
                         </tbody>
                       </Box>
                     </CardPaper>
-                  </Grid>
-                  <Grid item xs={12} md={4}>
+                  </Box>
+                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
                     <CardPaper sx={{ p: 2.5, borderRadius: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Total Sales
@@ -440,8 +440,8 @@ export default function DashboardContent() {
                         </Box>
                       </Box>
                     </CardPaper>
-                  </Grid>
-                </Grid>
+                  </Box>
+                </Box>
               </>
             ) : (
               <>
