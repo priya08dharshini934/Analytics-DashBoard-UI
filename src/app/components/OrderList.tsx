@@ -81,7 +81,7 @@ export default function OrderList() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex', minHeight: '100vh', background: theme.palette.background.default }}>
-        <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} setDarkMode={setDarkMode} />
+  <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} />
         <Box sx={{ flex: 1 }}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Box sx={{ p: 3, background: theme.palette.background.default, minHeight: '100vh' }}>

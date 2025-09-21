@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -319,7 +320,7 @@ export default function DashboardContent() {
                             </text>
                           ))}
                           {/* X-axis labels */}
-                          {MONTHS.map((month: string) => (
+                          {MONTHS.map((month: string, i: number) => (
                             <text
                               key={month}
                               x={60 + i * 60}
@@ -346,7 +347,7 @@ export default function DashboardContent() {
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
                       </Typography>
-                      <img src="/World Map.svg" alt="World Map" width={160} height={60} style={{ marginBottom: 8 }} />
+                      <Image src="/World Map.svg" alt="World Map" width={160} height={60} style={{ marginBottom: 8 }} />
                       <Box sx={{ width: '100%' }}>
                         {[
                           { city: 'New York', value: '72K', bar: 0.95 },
@@ -386,7 +387,7 @@ export default function DashboardContent() {
                           </tr>
                         </thead>
                         <tbody>
-                          {TOP_PRODUCTS.map((row: typeof TOP_PRODUCTS[number]) => (
+                          {TOP_PRODUCTS.map((row: typeof TOP_PRODUCTS[number], idx: number) => (
                             <tr key={idx} style={{ background: 'none' }}>
                               <td style={{ padding: 8, color: theme.palette.text.primary, fontWeight: 500 }}>{row[0]}</td>
                               <td style={{ padding: 8, color: mode === 'dark' ? '#fff' : '#fbc02d', fontWeight: 500 }}>{row[1]}</td>
@@ -501,7 +502,7 @@ export default function DashboardContent() {
                         <TableCell sx={{ color: theme.palette.text.primary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 600, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.id}</TableCell>
                         <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                            <img src={order.avatar} alt={order.user} width={32} height={32} style={{ borderRadius: '50%', marginRight: 8, border: `2px solid ${mode === 'dark' ? '#333' : '#eee'}` }} />
+                            <Image src={order.avatar} alt={order.user} width={32} height={32} style={{ borderRadius: '50%', marginRight: 8, border: `2px solid ${mode === 'dark' ? '#333' : '#eee'}` }} />
                             <Typography variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 600 }}>{order.user}</Typography>
                           </Box>
                         </TableCell>
