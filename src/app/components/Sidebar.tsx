@@ -18,10 +18,10 @@ interface SidebarProps {
   activeTab: string;
   onTabClick: (tab: string) => void;
   darkMode: boolean;
-  setDarkMode: (mode: boolean) => void;
+  // setDarkMode: (mode: boolean) => void;
 }
 
-export default function Sidebar({ activeTab, onTabClick, darkMode, setDarkMode }: SidebarProps) {
+export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProps) {
   const mode = darkMode ? 'dark' : 'light';
   const theme = createTheme({
     palette: {

@@ -49,13 +49,7 @@ const ORDERS = [
   { id: '#CM9819', user: 'Zoe Adams', avatar: 'https://i.pravatar.cc/40?img=19', project: 'Landing Page', address: 'Juniper St Portland', date: 'Feb 16, 2023', status: 'In Progress' },
 ];
 
-const STATUS_COLOR: Record<string, 'info' | 'success' | 'warning' | 'primary' | 'error'> = {
-  'In Progress': 'info',
-  'Complete': 'success',
-  'Pending': 'warning',
-  'Approved': 'primary',
-  'Rejected': 'error',
-};
+// Removed unused STATUS_COLOR
 
 const STATS = [
   { label: "Customers", value: "3,781", delta: "+11.01%", color: "#6fb3ff" },
@@ -108,7 +102,7 @@ export default function DashboardContent() {
           }),
     },
   });
-  const CardPaper = (props: any) => <Paper elevation={0} {...props} />;
+  const CardPaper = (props: import("@mui/material").PaperProps) => <Paper elevation={0} {...props} />;
 
   // --- Data Filtering ---
   const filteredOrders = ORDERS.filter((order) => {
@@ -128,7 +122,7 @@ export default function DashboardContent() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex", minHeight: "100vh", background: theme.palette.background.default }}>
-        <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} />
         <Box sx={{ flex: 1 }}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Box
@@ -156,8 +150,8 @@ export default function DashboardContent() {
                 <Grid container spacing={2} sx={{ mb: 1 }}>
                   <Grid item xs={12} md={8}>
                     <Grid container spacing={2}>
-                      {STATS.map((stat: typeof STATS[number], idx: number) => (
-                        <Grid xs={12} sm={6} md={3} key={stat.label}>
+                      {STATS.map((stat: typeof STATS[number]) => (
+                        <Grid item xs={12} sm={6} md={3} key={stat.label}>
                           <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
                             <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                             <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
@@ -167,7 +161,7 @@ export default function DashboardContent() {
                       ))}
                     </Grid>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper
                       sx={{
                         px: 4.5,
@@ -263,7 +257,7 @@ export default function DashboardContent() {
                                   fontWeight="600"
                                   fontFamily="inherit"
                                 >
-                                  {MONTHS[idx]}
+                                  {MONTHS[PROJ_DATA.indexOf(d)]}
                                 </text>
                               </g>
                             );
@@ -275,7 +269,7 @@ export default function DashboardContent() {
                 </Grid>
                 {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid xs={12} md={8}>
+                  <Grid item xs={12} md={8}>
                     <CardPaper sx={{ p: 3.5, minHeight: 220, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
@@ -325,7 +319,7 @@ export default function DashboardContent() {
                             </text>
                           ))}
                           {/* X-axis labels */}
-                          {MONTHS.map((month: string, i: number) => (
+                          {MONTHS.map((month: string) => (
                             <text
                               key={month}
                               x={60 + i * 60}
@@ -347,7 +341,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
@@ -392,7 +386,7 @@ export default function DashboardContent() {
                           </tr>
                         </thead>
                         <tbody>
-                          {TOP_PRODUCTS.map((row: typeof TOP_PRODUCTS[number], idx: number) => (
+                          {TOP_PRODUCTS.map((row: typeof TOP_PRODUCTS[number]) => (
                             <tr key={idx} style={{ background: 'none' }}>
                               <td style={{ padding: 8, color: theme.palette.text.primary, fontWeight: 500 }}>{row[0]}</td>
                               <td style={{ padding: 8, color: mode === 'dark' ? '#fff' : '#fbc02d', fontWeight: 500 }}>{row[1]}</td>
@@ -404,7 +398,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper sx={{ p: 2.5, borderRadius: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Total Sales
