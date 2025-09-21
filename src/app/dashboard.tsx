@@ -146,30 +146,55 @@ export default function DashboardContent() {
                   </Typography>
                 </Box>
                 {/* Responsive Top Row: Stat cards 2x2 flex (left), Projections (right) */}
-                <Box sx={{ display: 'flex', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 2, mb: 1 }}>
-                  <Box sx={{
+                <Box
+                  sx={{
                     display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    flexWrap: 'wrap',
-                    gap: 2,
-                    flex: 2,
-                    minWidth: 0,
-                  }}>
+                    flexDirection: { xs: 'column', md: 'row' },
+                    gap: { xs: 2, sm: 2.5, md: 3 },
+                    mb: 1,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: { xs: 'column', sm: 'row' },
+                      flexWrap: { xs: 'nowrap', sm: 'wrap' },
+                      gap: { xs: 2, sm: 2.5 },
+                      flex: 2,
+                      minWidth: 0,
+                    }}
+                  >
                     {STATS.map((stat: typeof STATS[number], idx: number) => (
-                      <Box key={stat.label} sx={{ flex: '1 1 160px', minWidth: 140, maxWidth: { xs: '100%', sm: '50%' } }}>
-                        <CardPaper sx={{ p: 3, borderRadius: 2.5, height: '100%' }}>
-                          <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
-                          <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
-                          <Typography sx={{ fontSize: 12, color: stat.color, mt: 0.5 }}>{stat.delta}</Typography>
+                      <Box
+                        key={stat.label}
+                        sx={{
+                          flex: { xs: '1 1 100%', sm: '1 1 48%' },
+                          minWidth: { xs: '100%', sm: 140 },
+                          maxWidth: { xs: '100%', sm: '48%' },
+                        }}
+                      >
+                        <CardPaper sx={{ p: { xs: 2, sm: 3 }, borderRadius: 2.5, height: '100%', boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)' }}>
+                          <Typography sx={{ fontSize: { xs: 12, sm: 13 }, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
+                          <Typography sx={{ fontSize: { xs: 22, sm: 28 }, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
+                          <Typography sx={{ fontSize: { xs: 11, sm: 12 }, color: stat.color, mt: 0.5 }}>{stat.delta}</Typography>
                         </CardPaper>
                       </Box>
                     ))}
                   </Box>
-                  <Box sx={{ flex: 1, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column' }}>
+                  <Box
+                    sx={{
+                      flex: 1,
+                      minWidth: { xs: '100%', sm: 260, md: 320 },
+                      maxWidth: { xs: '100%', md: 420 },
+                      display: 'flex',
+                      flexDirection: 'column',
+                      mt: { xs: 2, md: 0 },
+                    }}
+                  >
                     <CardPaper
                       sx={{
-                        px: 4.5,
-                        py: 3.5,
+                        px: { xs: 2, sm: 4.5 },
+                        py: { xs: 2, sm: 3.5 },
                         background: mode === 'dark' ? '#232326' : '#fff',
                         borderRadius: 2.2,
                         height: '100%',
@@ -177,13 +202,13 @@ export default function DashboardContent() {
                         overflow: 'hidden',
                         display: 'flex',
                         flexDirection: 'column',
-                        boxShadow: '0 2px 16px 0 rgba(0,0,0,0.12)',
-                        minHeight: { xs: 230, md: 230 },
+                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)',
+                        minHeight: { xs: 180, sm: 230, md: 230 },
                       }}
                     >
                       <Typography
                         variant="h6"
-                        sx={{ mb: 2, color: mode === 'dark' ? '#fff' : '#222', fontWeight: 800, fontSize: 22, letterSpacing: 0.1 }}
+                        sx={{ mb: 2, color: mode === 'dark' ? '#fff' : '#222', fontWeight: 800, fontSize: { xs: 18, sm: 22 }, letterSpacing: 0.1 }}
                       >
                         Projections vs Actuals
                       </Typography>
@@ -270,12 +295,37 @@ export default function DashboardContent() {
                   </Box>
                 </Box>
                 {/* Middle and Right Columns: Revenue chart (2 rows tall), Revenue by Location (top right), Total Sales (bottom right) */}
-                <Box sx={{ display: 'flex', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 2, mb: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    gap: { xs: 2, sm: 2.5, md: 3 },
+                    mb: 1,
+                  }}
+                >
                   {/* Left: Revenue chart, spans 2 rows */}
-                  <Box sx={{ flex: 2, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
-                    <CardPaper sx={{ p: 3.5, minHeight: 340, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2, flex: 1 }}>
+                  <Box
+                    sx={{
+                      flex: 2,
+                      minWidth: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'stretch',
+                      mb: { xs: 2, md: 0 },
+                    }}
+                  >
+                    <CardPaper
+                      sx={{
+                        p: { xs: 2, sm: 3.5 },
+                        minHeight: { xs: 220, sm: 340 },
+                        background: mode === 'dark' ? '#18181b' : '#fff',
+                        borderRadius: 2.2,
+                        flex: 1,
+                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)',
+                      }}
+                    >
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
+                        <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: { xs: 15, sm: 17 } }}>
                           Revenue
                         </Typography>
                         <Box sx={{ ml: 2, fontSize: 13, color: theme.palette.text.secondary, display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -289,7 +339,7 @@ export default function DashboardContent() {
                           </Box>
                         </Box>
                       </Box>
-                      <Box sx={{ position: 'relative', height: 220, width: '100%' }}>
+                      <Box sx={{ position: 'relative', height: { xs: 140, sm: 220 }, width: '100%' }}>
                         <svg viewBox="0 0 420 160" width="100%" height="100%" preserveAspectRatio="none">
                           {/* Grid lines */}
                           {[0, 1, 2, 3].map((i) => {
@@ -345,12 +395,21 @@ export default function DashboardContent() {
                     </CardPaper>
                   </Box>
                   {/* Right: Revenue by Location (top), Total Sales (bottom) stacked */}
-                  <Box sx={{ flex: 1, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <CardPaper sx={{ p: 2, borderRadius: 3 }}>
-                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
+                  <Box
+                    sx={{
+                      flex: 1,
+                      minWidth: { xs: '100%', sm: 220, md: 320 },
+                      maxWidth: { xs: '100%', md: 420 },
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: { xs: 2, sm: 2.5 },
+                    }}
+                  >
+                    <CardPaper sx={{ p: { xs: 1.5, sm: 2 }, borderRadius: 3, boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)' }}>
+                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700, fontSize: { xs: 14, sm: 16 } }}>
                         Revenue by Location
                       </Typography>
-                      <Image src="/World Map.svg" alt="World Map" width={160} height={60} style={{ marginBottom: 8 }} />
+                      <Image src="/World Map.svg" alt="World Map" width={120} height={45} style={{ marginBottom: 8 }} />
                       <Box sx={{ width: '100%' }}>
                         {[
                           { city: 'New York', value: '72K', bar: 0.95 },
@@ -358,7 +417,7 @@ export default function DashboardContent() {
                           { city: 'Sydney', value: '25K', bar: 0.35 },
                           { city: 'Singapore', value: '61K', bar: 0.8 },
                         ].map((row, idx) => (
-                          <Box key={row.city} sx={{ mb: idx < 3 ? 1.5 : 0 }}>
+                          <Box key={row.city} sx={{ mb: idx < 3 ? 1.2 : 0 }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 15 }}>
                               <Typography variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>{row.city}</Typography>
                               <Typography variant="body2" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>{row.value}</Typography>
@@ -373,14 +432,21 @@ export default function DashboardContent() {
                   </Box>
                 </Box>
                 {/* Bottom row: Top Selling Products (left), Total Sales (right) - unchanged */}
-                <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
-                  <Box sx={{ flex: 2 }}>
-                    <CardPaper sx={{ p: 3, mt: 0 }}>
-                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    gap: { xs: 2, sm: 2.5, md: 3 },
+                    mt: 1,
+                  }}
+                >
+                  <Box sx={{ flex: 2, minWidth: { xs: '100%', md: 0 }, mb: { xs: 2, md: 0 } }}>
+                    <CardPaper sx={{ p: { xs: 1.5, sm: 3 }, mt: 0, boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)' }}>
+                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700, fontSize: { xs: 14, sm: 16 } }}>
                         Top Selling Products
                       </Typography>
                       <Divider sx={{ mb: 1, borderColor: theme.palette.divider }} />
-                      <Box component="table" sx={{ width: '100%', fontSize: 14 }}>
+                      <Box component="table" sx={{ width: '100%', fontSize: { xs: 12, sm: 14 } }}>
                         <thead>
                           <tr>
                             <th style={{ textAlign: 'left', padding: 8, color: theme.palette.text.secondary }}>Name</th>
@@ -402,14 +468,14 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Box>
-                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
-                    <CardPaper sx={{ p: 2.5, borderRadius: 3 }}>
-                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
+                  <Box sx={{ flex: 1, minWidth: { xs: '100%', sm: 220, md: 340 }, maxWidth: { xs: '100%', md: 420 } }}>
+                    <CardPaper sx={{ p: { xs: 1.5, sm: 2.5 }, borderRadius: 3, boxShadow: '0 4px 24px 0 rgba(0,0,0,0.22)' }}>
+                      <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700, fontSize: { xs: 14, sm: 16 } }}>
                         Total Sales
                       </Typography>
                       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Box sx={{ position: 'relative', width: 90, height: 90, mb: 2 }}>
-                          <svg width="90" height="90" viewBox="0 0 36 36">
+                        <Box sx={{ position: 'relative', width: 70, height: 70, mb: 2 }}>
+                          <svg width="70" height="70" viewBox="0 0 36 36">
                             <circle cx="18" cy="18" r="16" fill={mode === 'dark' ? '#222' : '#eaf6ff'} />
                             {/* Direct */}
                             <path d="M18 2 a 16 16 0 0 1 10 28" fill="none" stroke={mode === 'dark' ? '#6fb3ff' : '#388e3c'} strokeWidth="4" />
