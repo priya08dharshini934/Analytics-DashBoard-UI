@@ -149,29 +149,24 @@ export default function DashboardContent() {
                 </Box>
                 {/* Top row: Stat cards and Projections vs Actuals */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid item xs={12} md={8}>
-                    <Grid container spacing={2}>
-                      {STATS.map((stat: typeof STATS[number]) => (
-                        <Grid item xs={12} sm={6} md={3} key={stat.label}>
-                          <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
-                            <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
-                            <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
-                            <Typography sx={{ fontSize: 12, color: stat.color, mt: 0.5 }}>{stat.delta}</Typography>
-                          </CardPaper>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, width: '100%' }}>
+                    {STATS.map((stat: typeof STATS[number]) => (
+                      <Box key={stat.label} sx={{ flex: '1 1 22%', minWidth: 180 }}>
+                        <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
+                          <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
+                          <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
+                          <Typography sx={{ fontSize: 12, color: stat.color, mt: 0.5 }}>{stat.delta}</Typography>
+                        </CardPaper>
+                      </Box>
+                    ))}
+                  </Box>
+                  <Box sx={{ minWidth: 340, maxWidth: 420, width: '100%' }}>
                     <CardPaper
                       sx={{
                         px: 4.5,
                         py: 3.5,
                         background: mode === 'dark' ? '#232326' : '#fff',
                         borderRadius: 2.2,
-                        minWidth: 340,
-                        maxWidth: 420,
-                        width: '100%',
                         height: 230,
                         color: mode === 'dark' ? '#fff' : '#222',
                         overflow: 'hidden',
@@ -266,7 +261,7 @@ export default function DashboardContent() {
                         </svg>
                       </Box>
                     </CardPaper>
-                  </Grid>
+                  </Box>
                 </Grid>
                 {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
