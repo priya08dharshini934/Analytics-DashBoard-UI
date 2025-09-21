@@ -149,10 +149,10 @@ export default function DashboardContent() {
                 </Box>
                 {/* Top row: Stat cards and Projections vs Actuals */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid xs={12} md={8}>
+                  <Grid item xs={12} md={8}>
                     <Grid container spacing={2}>
                       {STATS.map((stat: typeof STATS[number]) => (
-                        <Grid xs={12} sm={6} md={3} key={stat.label}>
+                        <Grid item xs={12} sm={6} md={3} key={stat.label}>
                           <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
                             <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                             <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
@@ -162,7 +162,7 @@ export default function DashboardContent() {
                       ))}
                     </Grid>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper
                       sx={{
                         px: 4.5,
@@ -270,7 +270,7 @@ export default function DashboardContent() {
                 </Grid>
                 {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid xs={12} md={8}>
+                  <Grid item xs={12} md={8}>
                     <CardPaper sx={{ p: 3.5, minHeight: 220, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
@@ -342,7 +342,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
@@ -371,7 +371,7 @@ export default function DashboardContent() {
                 </Grid>
                 {/* Bottom row: Top Selling Products (left), Total Sales (right) */}
                 <Grid container spacing={2} sx={{ mt: 1 }}>
-                  <Grid xs={12} md={8}>
+                  <Grid item xs={12} md={8}>
                     <CardPaper sx={{ p: 3, mt: 0 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Top Selling Products
@@ -399,7 +399,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid xs={12} md={4}>
+                  <Grid item xs={12} md={4}>
                     <CardPaper sx={{ p: 2.5, borderRadius: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Total Sales
@@ -502,7 +502,7 @@ export default function DashboardContent() {
                         <TableCell sx={{ color: theme.palette.text.primary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 600, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.id}</TableCell>
                         <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                            <Image src={order.avatar} alt={order.user} width={32} height={32} style={{ borderRadius: '50%', marginRight: 8, border: `2px solid ${mode === 'dark' ? '#333' : '#eee'}` }} />
+                            <img src={order.avatar} alt={order.user} width={32} height={32} style={{ borderRadius: '50%', marginRight: 8, border: `2px solid ${mode === 'dark' ? '#333' : '#eee'}` }} />
                             <Typography variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 600 }}>{order.user}</Typography>
                           </Box>
                         </TableCell>
