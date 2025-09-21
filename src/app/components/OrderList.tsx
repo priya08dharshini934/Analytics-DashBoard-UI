@@ -81,90 +81,143 @@ export default function OrderList() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex', minHeight: '100vh', background: theme.palette.background.default }}>
-  <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} />
-        <Box sx={{ flex: 1 }}>
+        <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} />
+        <Box sx={{ flex: 1, minWidth: 0 }}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Box sx={{ p: 3, background: theme.palette.background.default, minHeight: '100vh' }}>
+          <Box sx={{
+            p: { xs: 1, sm: 2, md: 3 },
+            background: theme.palette.background.default,
+            minHeight: '100vh',
+            width: '100%',
+            boxSizing: 'border-box',
+            transition: 'padding 0.2s',
+          }}>
             {/* Main Header */}
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="h4" fontWeight={900} sx={{ color: theme.palette.text.primary, letterSpacing: 0.5 }}>
+            <Box sx={{ mb: { xs: 2, sm: 3 } }}>
+              <Typography
+                variant="h4"
+                fontWeight={900}
+                sx={{
+                  color: theme.palette.text.primary,
+                  letterSpacing: 0.5,
+                  fontSize: { xs: 22, sm: 28 },
+                  textAlign: { xs: 'center', sm: 'left' },
+                }}
+              >
                 Orders
               </Typography>
-              <Typography variant="subtitle1" sx={{ color: theme.palette.text.secondary, fontWeight: 500, mt: 0.5 }}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: theme.palette.text.secondary,
+                  fontWeight: 500,
+                  mt: 0.5,
+                  fontSize: { xs: 14, sm: 16 },
+                  textAlign: { xs: 'center', sm: 'left' },
+                }}
+              >
                 Recent orders and project status
               </Typography>
             </Box>
             {/* Top breadcrumbs */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, fontWeight: 700 }}>Dashboards</Typography>
-              <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, fontWeight: 700 }}>/</Typography>
-              <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700 }}>Default</Typography>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: { xs: 0.5, sm: 1 },
+              mb: { xs: 1, sm: 2 },
+              flexWrap: 'wrap',
+            }}>
+              <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, fontWeight: 700, fontSize: { xs: 13, sm: 15 } }}>Dashboards</Typography>
+              <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, fontWeight: 700, fontSize: { xs: 13, sm: 15 } }}>/</Typography>
+              <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: { xs: 13, sm: 15 } }}>Default</Typography>
               <Box sx={{ flex: 1 }} />
               {/* Top right icons row */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <IconButton sx={{ color: theme.palette.text.secondary, bgcolor: theme.palette.background.paper, borderRadius: 2 }}><FilterListIcon /></IconButton>
-                <IconButton sx={{ color: theme.palette.text.secondary, bgcolor: theme.palette.background.paper, borderRadius: 2 }}><AddIcon /></IconButton>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, flexWrap: 'wrap' }}>
+                <IconButton sx={{ color: theme.palette.text.secondary, bgcolor: theme.palette.background.paper, borderRadius: 2, p: { xs: 0.5, sm: 1 } }}><FilterListIcon /></IconButton>
+                <IconButton sx={{ color: theme.palette.text.secondary, bgcolor: theme.palette.background.paper, borderRadius: 2, p: { xs: 0.5, sm: 1 } }}><AddIcon /></IconButton>
                 <InputBase
                   placeholder="Search"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  sx={{ background: theme.palette.background.paper, borderRadius: 2, px: 2, py: 0.5, width: 180, color: theme.palette.text.primary, ml: 2 }}
+                  sx={{
+                    background: theme.palette.background.paper,
+                    borderRadius: 2,
+                    px: { xs: 1, sm: 2 },
+                    py: 0.5,
+                    width: { xs: 120, sm: 180 },
+                    color: theme.palette.text.primary,
+                    ml: { xs: 1, sm: 2 },
+                    fontSize: { xs: 13, sm: 15 },
+                  }}
                   startAdornment={<SearchIcon sx={{ mr: 1, color: theme.palette.text.secondary }} />}
                 />
               </Box>
             </Box>
-            {/* Table */}
-            <Table sx={{ borderCollapse: 'separate', borderSpacing: 0, background: theme.palette.background.paper, borderRadius: 3, overflow: 'hidden', boxShadow: mode === 'dark' ? '0 2px 8px rgba(0,0,0,0.24)' : '0 2px 8px rgba(0,0,0,0.04)', width: '100%' }}>
-              <TableHead>
-                <TableRow sx={{ background: theme.palette.background.paper, height: 48 }}>
-                  <TableCell padding="checkbox" sx={{ background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>
-                    <Checkbox sx={{ color: theme.palette.text.secondary, p: 0 }} />
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>Order ID</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>User</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>Project</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>Address</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>Date</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 48 }}>Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {paginatedOrders.map((order, idx) => (
-                  <motion.tr key={order.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }} style={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, height: 56 }}>
-                    <TableCell padding="checkbox" sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
+            {/* Responsive Table */}
+            <Box sx={{ width: '100%', overflowX: 'auto', borderRadius: 3, boxShadow: mode === 'dark' ? '0 2px 8px rgba(0,0,0,0.24)' : '0 2px 8px rgba(0,0,0,0.04)', background: theme.palette.background.paper }}>
+              <Table sx={{ minWidth: 600, borderCollapse: 'separate', borderSpacing: 0, background: theme.palette.background.paper }}>
+                <TableHead>
+                  <TableRow sx={{ background: theme.palette.background.paper, height: { xs: 40, sm: 48 } }}>
+                    <TableCell padding="checkbox" sx={{ background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, p: { xs: 0.5, sm: 1 } }}>
                       <Checkbox sx={{ color: theme.palette.text.secondary, p: 0 }} />
                     </TableCell>
-                    <TableCell sx={{ color: theme.palette.text.primary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 600, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.id}</TableCell>
-                    <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar src={order.avatar} sx={{ width: 32, height: 32 }} />
-                        <Typography sx={{ color: theme.palette.text.primary, fontWeight: 600 }}>{order.user}</Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.project}</TableCell>
-                    <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.address}</TableCell>
-                    <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.date}</TableCell>
-                    <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
-                      <Chip label={order.status} size="small" sx={{ fontWeight: 700, color: '#fff', px: 2.5, borderRadius: 3, fontSize: 15, background:
-                        order.status === 'In Progress' ? '#1976d2' :
-                        order.status === 'Complete' ? '#43a047' :
-                        order.status === 'Pending' ? '#fb8c00' :
-                        order.status === 'Approved' ? '#1976d2' :
-                        order.status === 'Rejected' ? '#d32f2f' : theme.palette.background.paper
-                      }} />
-                    </TableCell>
-                  </motion.tr>
-                ))}
-              </TableBody>
-            </Table>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 } }}>Order ID</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 } }}>User</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>Project</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>Address</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>Date</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: theme.palette.text.secondary, background: theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 48 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 } }}>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {paginatedOrders.map((order, idx) => (
+                    <motion.tr key={order.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }} style={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, height: 56 }}>
+                      <TableCell padding="checkbox" sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, p: { xs: 0.5, sm: 1 } }}>
+                        <Checkbox sx={{ color: theme.palette.text.secondary, p: 0 }} />
+                      </TableCell>
+                      <TableCell sx={{ color: theme.palette.text.primary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 600, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, fontSize: { xs: 13, sm: 15 }, p: { xs: 0.5, sm: 1 } }}>{order.id}</TableCell>
+                      <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, p: { xs: 0.5, sm: 1 } }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 } }}>
+                          <Avatar src={order.avatar} sx={{ width: { xs: 24, sm: 32 }, height: { xs: 24, sm: 32 } }} />
+                          <Typography sx={{ color: theme.palette.text.primary, fontWeight: 600, fontSize: { xs: 13, sm: 15 } }}>{order.user}</Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, fontSize: { xs: 12, sm: 14 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>{order.project}</TableCell>
+                      <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, fontSize: { xs: 12, sm: 14 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>{order.address}</TableCell>
+                      <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, fontSize: { xs: 12, sm: 14 }, p: { xs: 0.5, sm: 1 }, display: { xs: 'none', md: 'table-cell' } }}>{order.date}</TableCell>
+                      <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: { xs: 40, sm: 56 }, p: { xs: 0.5, sm: 1 } }}>
+                        <Chip label={order.status} size="small" sx={{ fontWeight: 700, color: '#fff', px: { xs: 1.5, sm: 2.5 }, borderRadius: 3, fontSize: { xs: 12, sm: 15 }, background:
+                          order.status === 'In Progress' ? '#1976d2' :
+                          order.status === 'Complete' ? '#43a047' :
+                          order.status === 'Pending' ? '#fb8c00' :
+                          order.status === 'Approved' ? '#1976d2' :
+                          order.status === 'Rejected' ? '#d32f2f' : theme.palette.background.paper
+                        }} />
+                      </TableCell>
+                    </motion.tr>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
             {/* Pagination */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: { xs: 1, sm: 2 } }}>
               <Pagination
                 count={pageCount}
                 page={page}
                 onChange={(_, value) => setPage(value)}
                 color="primary"
-                sx={{ '& .MuiPaginationItem-root': { color: theme.palette.text.primary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderRadius: 2, border: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, fontWeight: 700 } }}
+                sx={{
+                  '& .MuiPaginationItem-root': {
+                    color: theme.palette.text.primary,
+                    background: mode === 'dark' ? '#222' : theme.palette.background.paper,
+                    borderRadius: 2,
+                    border: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`,
+                    fontWeight: 700,
+                    fontSize: { xs: 12, sm: 15 },
+                    minWidth: { xs: 28, sm: 36 },
+                    height: { xs: 28, sm: 36 },
+                  },
+                }}
               />
             </Box>
           </Box>

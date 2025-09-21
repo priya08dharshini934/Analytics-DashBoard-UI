@@ -46,32 +46,56 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
       <Drawer
         variant="permanent"
         PaperProps={{
-          style: {
-            width: 260,
+          sx: {
+            width: { xs: 70, sm: 200, md: 260 },
             boxSizing: 'border-box',
             background: theme.palette.background.default,
             color: theme.palette.text.primary,
             borderRight: `1px solid ${theme.palette.background.paper}`,
+            transition: 'width 0.3s',
           },
         }}
-        style={{ width: 260, flexShrink: 0 }}
+        sx={{ width: { xs: 70, sm: 200, md: 260 }, flexShrink: 0 }}
       >
-        {/* Sidebar header without mode toggle */}
-        <Box sx={{ display: 'flex', alignItems: 'center', p: 2, pb: 0 }}>
-          <Typography variant="h6" style={{ fontWeight: 'bold', fontSize: 22, letterSpacing: 1, color: theme.palette.text.primary, flex: 1 }}>Bytwind</Typography>
+        {/* Sidebar header */}
+        <Box sx={{ display: 'flex', alignItems: 'center', p: { xs: 1, sm: 2 }, pb: 0 }}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 'bold',
+              fontSize: { xs: 16, sm: 20, md: 22 },
+              letterSpacing: 1,
+              color: theme.palette.text.primary,
+              flex: 1,
+              textAlign: { xs: 'center', sm: 'left' },
+            }}
+          >
+            Bytwind
+          </Typography>
         </Box>
-        <Typography variant="body2" style={{ padding: '0 16px 8px', color: theme.palette.text.secondary, fontSize: 15 }}>Home Page</Typography>
-        <Divider style={{ background: theme.palette.background.paper }} />
-        <List style={{ marginTop: 8 }}>
+        <Typography
+          variant="body2"
+          sx={{
+            px: { xs: 1, sm: 2 },
+            pb: 1,
+            color: theme.palette.text.secondary,
+            fontSize: { xs: 12, sm: 14, md: 15 },
+            textAlign: { xs: 'center', sm: 'left' },
+          }}
+        >
+          Home Page
+        </Typography>
+        <Divider sx={{ background: theme.palette.background.paper }} />
+        <List sx={{ mt: 1, p: 0 }}>
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
               component="button"
               disabled={item.disabled}
-              style={{
-                padding: '10px 24px',
-                borderRadius: 8,
-                marginBottom: 4,
+              sx={{
+                p: { xs: '8px 8px', sm: '10px 24px' },
+                borderRadius: 2,
+                mb: 0.5,
                 opacity: item.disabled ? 0.5 : 1,
                 pointerEvents: item.disabled ? 'none' : 'auto',
                 background: activeTab === item.text ? theme.palette.background.paper : 'none',
@@ -79,9 +103,11 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
                 fontWeight: activeTab === item.text ? 700 : 500,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 12,
+                gap: 1.5,
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
                 boxShadow: activeTab === item.text ? `0 0 0 2px ${theme.palette.text.primary}` : 'none',
+                minHeight: { xs: 48, sm: 40 },
+                transition: 'background 0.2s',
               }}
               onClick={() => {
                 if (!item.disabled) {
@@ -89,19 +115,44 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
                 }
               }}
             >
-              <ListItemIcon style={{ color: item.disabled ? '#888' : theme.palette.text.primary, minWidth: 36 }}>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: item.disabled ? '#888' : theme.palette.text.primary, minWidth: 32 }}>{item.icon}</ListItemIcon>
               <ListItemText
                 primary={item.text}
-                primaryTypographyProps={{ style: { fontWeight: activeTab === item.text ? 700 : 500, fontSize: 16, color: item.disabled ? '#888' : theme.palette.text.primary } }}
+                primaryTypographyProps={{
+                  sx: {
+                    fontWeight: activeTab === item.text ? 700 : 500,
+                    fontSize: { xs: 13, sm: 15, md: 16 },
+                    color: item.disabled ? '#888' : theme.palette.text.primary,
+                    display: { xs: 'none', sm: 'block' },
+                  },
+                }}
               />
             </ListItem>
           ))}
         </List>
-        <Divider style={{ background: theme.palette.background.paper, margin: '16px 0' }} />
-        <List>
+        <Divider sx={{ background: theme.palette.background.paper, my: 2 }} />
+        <List sx={{ p: 0 }}>
           {pageItems.map((page) => (
-            <ListItem key={page} component="button" style={{ padding: '8px 24px', borderRadius: 8 }}>
-              <ListItemText primary={page} primaryTypographyProps={{ style: { fontSize: 15, color: theme.palette.text.secondary } }} />
+            <ListItem
+              key={page}
+              component="button"
+              sx={{
+                p: { xs: '6px 8px', sm: '8px 24px' },
+                borderRadius: 2,
+                minHeight: { xs: 36, sm: 32 },
+                transition: 'background 0.2s',
+                display: { xs: 'none', sm: 'flex' },
+              }}
+            >
+              <ListItemText
+                primary={page}
+                primaryTypographyProps={{
+                  sx: {
+                    fontSize: { xs: 12, sm: 14, md: 15 },
+                    color: theme.palette.text.secondary,
+                  },
+                }}
+              />
             </ListItem>
           ))}
         </List>

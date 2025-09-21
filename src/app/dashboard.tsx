@@ -145,18 +145,18 @@ export default function DashboardContent() {
                     eCommerce
                   </Typography>
                 </Box>
-                {/* Responsive Top Row: Stat cards 2x2 grid (left), Projections (right) */}
+                {/* Responsive Top Row: Stat cards 2x2 flex (left), Projections (right) */}
                 <Box sx={{ display: 'flex', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 2, mb: 1 }}>
                   <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
-                    gridTemplateRows: { xs: 'repeat(4, 1fr)', sm: '1fr 1fr' },
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    flexWrap: 'wrap',
                     gap: 2,
                     flex: 2,
                     minWidth: 0,
                   }}>
                     {STATS.map((stat: typeof STATS[number], idx: number) => (
-                      <Box key={stat.label} sx={{ minWidth: 160 }}>
+                      <Box key={stat.label} sx={{ flex: '1 1 160px', minWidth: 140, maxWidth: { xs: '100%', sm: '50%' } }}>
                         <CardPaper sx={{ p: 3, borderRadius: 2.5, height: '100%' }}>
                           <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                           <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
