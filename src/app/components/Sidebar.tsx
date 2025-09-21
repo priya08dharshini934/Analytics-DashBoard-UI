@@ -6,13 +6,9 @@
 'use client';
 import React from 'react';
 import { Box } from '@mui/material';
-import { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Divider } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import Image from 'next/image';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import PeopleIcon from '@mui/icons-material/People';
 
 const pageItems = [
   'User Profile', 'Overview', 'Projects', 'Campaigns', 'Documents', 'Followers', 'Account', 'Corporate', 'Blog', 'Social'

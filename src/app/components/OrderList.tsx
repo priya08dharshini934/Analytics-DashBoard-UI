@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, Avatar, Chip, IconButton, InputBase, Divider, Pagination, Checkbox } from '@mui/material';
+import { Box, Typography, Table, TableHead, TableRow, TableCell, TableBody, Avatar, Chip, IconButton, InputBase, Pagination, Checkbox } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
@@ -35,13 +35,6 @@ const orders = [
   { id: '#CM9819', user: 'Zoe Adams', avatar: 'https://i.pravatar.cc/40?img=19', project: 'Landing Page', address: 'Juniper St Portland', date: 'Feb 16, 2023', status: 'In Progress' },
 ];
 
-const statusColor: Record<string, 'info' | 'success' | 'warning' | 'primary' | 'error'> = {
-  'In Progress': 'info',
-  'Complete': 'success',
-  'Pending': 'warning',
-  'Approved': 'primary',
-  'Rejected': 'error',
-};
 
 import Sidebar from './Sidebar';
 

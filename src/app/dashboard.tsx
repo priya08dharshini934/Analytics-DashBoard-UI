@@ -1,4 +1,3 @@
-// DashboardRevamped.tsx
 "use client";
 import React, { useState } from "react";
 import Header from "./components/Header";
@@ -19,49 +18,100 @@ import {
   InputBase,
   Pagination,
 } from "@mui/material";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import { motion } from "framer-motion";
 
+// Dashboard Page - Cleaned and Organized
+
+// --- Constants ---
+const ORDERS = [
+  { id: '#CM9801', user: 'Natali Craig', avatar: 'https://i.pravatar.cc/40?img=1', project: 'Landing Page', address: 'Meadow Lane Oakland', date: 'Just now', status: 'In Progress' },
+  { id: '#CM9802', user: 'Kate Morrison', avatar: 'https://i.pravatar.cc/40?img=2', project: 'CRM Admin pages', address: 'Larry Son Francisco', date: 'A minute ago', status: 'Complete' },
+  { id: '#CM9803', user: 'Drew Cano', avatar: 'https://i.pravatar.cc/40?img=3', project: 'Client Project', address: 'Bagwell Avenue Ocala', date: '1 hour ago', status: 'Pending' },
+  { id: '#CM9804', user: 'Orlando Diggs', avatar: 'https://i.pravatar.cc/40?img=4', project: 'Admin Dashboard', address: 'Washburn Baton Rouge', date: 'Yesterday', status: 'Approved' },
+  { id: '#CM9805', user: 'Andi Lane', avatar: 'https://i.pravatar.cc/40?img=5', project: 'App Landing Page', address: 'Nest Lane Olivette', date: 'Feb 2, 2023', status: 'Rejected' },
+  { id: '#CM9806', user: 'Sam Lee', avatar: 'https://i.pravatar.cc/40?img=6', project: 'Mobile App', address: 'Pine Street Seattle', date: 'Feb 3, 2023', status: 'Complete' },
+  { id: '#CM9807', user: 'Linda Park', avatar: 'https://i.pravatar.cc/40?img=7', project: 'Web Portal', address: 'Elm Road Dallas', date: 'Feb 4, 2023', status: 'Pending' },
+  { id: '#CM9808', user: 'Mike Chen', avatar: 'https://i.pravatar.cc/40?img=8', project: 'API Integration', address: 'Maple Ave Boston', date: 'Feb 5, 2023', status: 'Approved' },
+  { id: '#CM9809', user: 'Sara Kim', avatar: 'https://i.pravatar.cc/40?img=9', project: 'E-commerce', address: 'Oak Lane Miami', date: 'Feb 6, 2023', status: 'Rejected' },
+  { id: '#CM9810', user: 'Tom Ford', avatar: 'https://i.pravatar.cc/40?img=10', project: 'Landing Page', address: 'Cedar St Denver', date: 'Feb 7, 2023', status: 'In Progress' },
+  { id: '#CM9811', user: 'Emily Stone', avatar: 'https://i.pravatar.cc/40?img=11', project: 'CRM Admin pages', address: 'Birch Blvd Houston', date: 'Feb 8, 2023', status: 'Complete' },
+  { id: '#CM9812', user: 'Chris Paul', avatar: 'https://i.pravatar.cc/40?img=12', project: 'Client Project', address: 'Spruce Ct Atlanta', date: 'Feb 9, 2023', status: 'Pending' },
+  { id: '#CM9813', user: 'Anna Bell', avatar: 'https://i.pravatar.cc/40?img=13', project: 'Admin Dashboard', address: 'Willow Dr Chicago', date: 'Feb 10, 2023', status: 'Approved' },
+  { id: '#CM9814', user: 'James Dean', avatar: 'https://i.pravatar.cc/40?img=14', project: 'App Landing Page', address: 'Aspen Way Phoenix', date: 'Feb 11, 2023', status: 'Rejected' },
+  { id: '#CM9815', user: 'Olivia King', avatar: 'https://i.pravatar.cc/40?img=15', project: 'Mobile App', address: 'Magnolia St Orlando', date: 'Feb 12, 2023', status: 'Complete' },
+  { id: '#CM9816', user: 'Lucas Gray', avatar: 'https://i.pravatar.cc/40?img=16', project: 'Web Portal', address: 'Dogwood Rd Charlotte', date: 'Feb 13, 2023', status: 'Pending' },
+  { id: '#CM9817', user: 'Mia Clark', avatar: 'https://i.pravatar.cc/40?img=17', project: 'API Integration', address: 'Hickory Ave Tampa', date: 'Feb 14, 2023', status: 'Approved' },
+  { id: '#CM9818', user: 'Ethan Hall', avatar: 'https://i.pravatar.cc/40?img=18', project: 'E-commerce', address: 'Sycamore Lane Austin', date: 'Feb 15, 2023', status: 'Rejected' },
+  { id: '#CM9819', user: 'Zoe Adams', avatar: 'https://i.pravatar.cc/40?img=19', project: 'Landing Page', address: 'Juniper St Portland', date: 'Feb 16, 2023', status: 'In Progress' },
+];
+
+const STATUS_COLOR: Record<string, 'info' | 'success' | 'warning' | 'primary' | 'error'> = {
+  'In Progress': 'info',
+  'Complete': 'success',
+  'Pending': 'warning',
+  'Approved': 'primary',
+  'Rejected': 'error',
+};
+
+const STATS = [
+  { label: "Customers", value: "3,781", delta: "+11.01%", color: "#6fb3ff" },
+  { label: "Orders", value: "1,219", delta: "-0.03%", color: "#fff" },
+  { label: "Revenue", value: "$695", delta: "+15.03%", color: "#9ef0c7" },
+  { label: "Growth", value: "30.1%", delta: "+6.08%", color: "#ff6b6b" },
+];
+
+const TOP_PRODUCTS = [
+  ["ASOS Ridley High Waist", "$79.49", 82, "$4,518.18"],
+  ["Marco Lightweight Shirt", "$128.50", 37, "$4,754.50"],
+  ["Half Sleeve Shirt", "$39.99", 64, "$2,559.36"],
+  ["Lightweight Jacket", "$20.00", 32, "$3,480.00"],
+  ["Marco Shoes", "$79.49", 44, "$1,965.81"],
+];
+
+const PROJ_DATA = [
+  { proj: 16, act: 3 }, // Jan
+  { proj: 22, act: 5 }, // Feb
+  { proj: 18, act: 4 }, // Mar
+  { proj: 26, act: 6 }, // Apr
+  { proj: 14, act: 2 }, // May
+  { proj: 22, act: 4 }, // Jun
+];
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+
+// --- Main Component ---
 export default function DashboardContent() {
-  // Orders data and statusColor for Default tab table
-  const orders = [
-    { id: '#CM9801', user: 'Natali Craig', avatar: 'https://i.pravatar.cc/40?img=1', project: 'Landing Page', address: 'Meadow Lane Oakland', date: 'Just now', status: 'In Progress' },
-    { id: '#CM9802', user: 'Kate Morrison', avatar: 'https://i.pravatar.cc/40?img=2', project: 'CRM Admin pages', address: 'Larry Son Francisco', date: 'A minute ago', status: 'Complete' },
-    { id: '#CM9803', user: 'Drew Cano', avatar: 'https://i.pravatar.cc/40?img=3', project: 'Client Project', address: 'Bagwell Avenue Ocala', date: '1 hour ago', status: 'Pending' },
-    { id: '#CM9804', user: 'Orlando Diggs', avatar: 'https://i.pravatar.cc/40?img=4', project: 'Admin Dashboard', address: 'Washburn Baton Rouge', date: 'Yesterday', status: 'Approved' },
-    { id: '#CM9805', user: 'Andi Lane', avatar: 'https://i.pravatar.cc/40?img=5', project: 'App Landing Page', address: 'Nest Lane Olivette', date: 'Feb 2, 2023', status: 'Rejected' },
-    { id: '#CM9806', user: 'Sam Lee', avatar: 'https://i.pravatar.cc/40?img=6', project: 'Mobile App', address: 'Pine Street Seattle', date: 'Feb 3, 2023', status: 'Complete' },
-    { id: '#CM9807', user: 'Linda Park', avatar: 'https://i.pravatar.cc/40?img=7', project: 'Web Portal', address: 'Elm Road Dallas', date: 'Feb 4, 2023', status: 'Pending' },
-    { id: '#CM9808', user: 'Mike Chen', avatar: 'https://i.pravatar.cc/40?img=8', project: 'API Integration', address: 'Maple Ave Boston', date: 'Feb 5, 2023', status: 'Approved' },
-    { id: '#CM9809', user: 'Sara Kim', avatar: 'https://i.pravatar.cc/40?img=9', project: 'E-commerce', address: 'Oak Lane Miami', date: 'Feb 6, 2023', status: 'Rejected' },
-    { id: '#CM9810', user: 'Tom Ford', avatar: 'https://i.pravatar.cc/40?img=10', project: 'Landing Page', address: 'Cedar St Denver', date: 'Feb 7, 2023', status: 'In Progress' },
-    { id: '#CM9811', user: 'Emily Stone', avatar: 'https://i.pravatar.cc/40?img=11', project: 'CRM Admin pages', address: 'Birch Blvd Houston', date: 'Feb 8, 2023', status: 'Complete' },
-    { id: '#CM9812', user: 'Chris Paul', avatar: 'https://i.pravatar.cc/40?img=12', project: 'Client Project', address: 'Spruce Ct Atlanta', date: 'Feb 9, 2023', status: 'Pending' },
-    { id: '#CM9813', user: 'Anna Bell', avatar: 'https://i.pravatar.cc/40?img=13', project: 'Admin Dashboard', address: 'Willow Dr Chicago', date: 'Feb 10, 2023', status: 'Approved' },
-    { id: '#CM9814', user: 'James Dean', avatar: 'https://i.pravatar.cc/40?img=14', project: 'App Landing Page', address: 'Aspen Way Phoenix', date: 'Feb 11, 2023', status: 'Rejected' },
-    { id: '#CM9815', user: 'Olivia King', avatar: 'https://i.pravatar.cc/40?img=15', project: 'Mobile App', address: 'Magnolia St Orlando', date: 'Feb 12, 2023', status: 'Complete' },
-    { id: '#CM9816', user: 'Lucas Gray', avatar: 'https://i.pravatar.cc/40?img=16', project: 'Web Portal', address: 'Dogwood Rd Charlotte', date: 'Feb 13, 2023', status: 'Pending' },
-    { id: '#CM9817', user: 'Mia Clark', avatar: 'https://i.pravatar.cc/40?img=17', project: 'API Integration', address: 'Hickory Ave Tampa', date: 'Feb 14, 2023', status: 'Approved' },
-    { id: '#CM9818', user: 'Ethan Hall', avatar: 'https://i.pravatar.cc/40?img=18', project: 'E-commerce', address: 'Sycamore Lane Austin', date: 'Feb 15, 2023', status: 'Rejected' },
-    { id: '#CM9819', user: 'Zoe Adams', avatar: 'https://i.pravatar.cc/40?img=19', project: 'Landing Page', address: 'Juniper St Portland', date: 'Feb 16, 2023', status: 'In Progress' },
-  ];
-  const statusColor: Record<string, 'info' | 'success' | 'warning' | 'primary' | 'error'> = {
-    'In Progress': 'info',
-    'Complete': 'success',
-    'Pending': 'warning',
-    'Approved': 'primary',
-    'Rejected': 'error',
-  };
-  // Table search and pagination logic
-  const [search, setSearch] = useState('');
-  const rowsPerPage = 8;
+  // --- State ---
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [darkMode, setDarkMode] = useState(false);
-  const [activeTab, setActiveTab] = useState('Default');
-  const filteredOrders = orders.filter(order => {
+  const [activeTab, setActiveTab] = useState("Default");
+  const rowsPerPage = 8;
+
+  // --- Theme ---
+  const mode = darkMode ? "dark" : "light";
+  const theme = createTheme({
+    palette: {
+      mode,
+      ...(mode === "dark"
+        ? {
+            background: { default: "#18181b", paper: "#18181b" },
+            text: { primary: "#fff", secondary: "#bfc3c8" },
+          }
+        : {
+            background: { default: "#f7f8fa", paper: "#fff" },
+            text: { primary: "#222", secondary: "#555" },
+          }),
+    },
+  });
+  const CardPaper = (props: any) => <Paper elevation={0} {...props} />;
+
+  // --- Data Filtering ---
+  const filteredOrders = ORDERS.filter((order) => {
     const q = search.toLowerCase();
     return (
       order.id.toLowerCase().includes(q) ||
@@ -73,59 +123,27 @@ export default function DashboardContent() {
   });
   const paginatedOrders = filteredOrders.slice((page - 1) * rowsPerPage, page * rowsPerPage);
   const pageCount = Math.max(1, Math.ceil(filteredOrders.length / rowsPerPage));
-  const mode = darkMode ? 'dark' : 'light';
-  const theme = createTheme({
-    palette: {
-      mode,
-      ...(mode === 'dark'
-        ? {
-            background: { default: '#18181b', paper: '#18181b' },
-            text: { primary: '#fff', secondary: '#bfc3c8' },
-          }
-        : {
-            background: { default: '#f7f8fa', paper: '#fff' },
-            text: { primary: '#222', secondary: '#555' },
-          }),
-    },
-  });
-  const CardPaper = (props: any) => <Paper elevation={0} {...props} />;
 
-  // Stat cards in correct order: Customers, Orders, Revenue, Growth
-  const stats = [
-    { label: "Customers", value: "3,781", delta: "+11.01%", color: "#6fb3ff" },
-    { label: "Orders", value: "1,219", delta: "-0.03%", color: "#fff" },
-    { label: "Revenue", value: "$695", delta: "+15.03%", color: "#9ef0c7" },
-    { label: "Growth", value: "30.1%", delta: "+6.08%", color: "#ff6b6b" },
-  ];
-
-  const topProducts = [
-    ["ASOS Ridley High Waist", "$79.49", 82, "$4,518.18"],
-    ["Marco Lightweight Shirt", "$128.50", 37, "$4,754.50"],
-    ["Half Sleeve Shirt", "$39.99", 64, "$2,559.36"],
-    ["Lightweight Jacket", "$20.00", 32, "$3,480.00"],
-    ["Marco Shoes", "$79.49", 44, "$1,965.81"],
-  ];
-
-  // Chart data for projections/actuals
-  const projData = [
-    { proj: 16, act: 3 }, // Jan
-    { proj: 22, act: 5 }, // Feb
-    { proj: 18, act: 4 }, // Mar
-    { proj: 26, act: 6 }, // Apr
-    { proj: 14, act: 2 }, // May
-    { proj: 22, act: 4 }, // Jun
-  ];
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-
+  // --- Render ---
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex', minHeight: '100vh', background: theme.palette.background.default }}>
+      <Box sx={{ display: "flex", minHeight: "100vh", background: theme.palette.background.default }}>
         <Sidebar activeTab={activeTab} onTabClick={setActiveTab} darkMode={darkMode} setDarkMode={setDarkMode} />
         <Box sx={{ flex: 1 }}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Box sx={{ p: 3, width: '100%', minHeight: '100vh', borderRight: '4px solid rgba(255,87,34,0.85)', borderRadius: 2, background: theme.palette.background.default, transition: 'background 0.3s' }}>
-            {activeTab === 'eCommerce' ? (
+          <Box
+            sx={{
+              p: 3,
+              width: "100%",
+              minHeight: "100vh",
+              borderRight: "4px solid rgba(255,87,34,0.85)",
+              borderRadius: 2,
+              background: theme.palette.background.default,
+              transition: "background 0.3s",
+            }}
+          >
+            {/* --- eCommerce Tab --- */}
+            {activeTab === "eCommerce" ? (
               <>
                 {/* Dashboard content as before */}
                 {/* Header */}
@@ -138,8 +156,8 @@ export default function DashboardContent() {
                 <Grid container spacing={2} sx={{ mb: 1 }}>
                   <Grid item xs={12} md={8}>
                     <Grid container spacing={2}>
-                      {stats.map((stat, idx) => (
-                        <Grid item xs={12} sm={6} md={3} key={stat.label}>
+                      {STATS.map((stat: typeof STATS[number], idx: number) => (
+                        <Grid xs={12} sm={6} md={3} key={stat.label}>
                           <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
                             <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                             <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
@@ -149,7 +167,7 @@ export default function DashboardContent() {
                       ))}
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid xs={12} md={4}>
                     <CardPaper
                       sx={{
                         px: 4.5,
@@ -206,7 +224,7 @@ export default function DashboardContent() {
                             </text>
                           ))}
                           {/* Bars - straight rectangles, no border radius */}
-                          {projData.map((d, idx) => {
+                          {PROJ_DATA.map((d: typeof PROJ_DATA[number], idx: number) => {
                             const colWidth = 32;
                             const gap = 22;
                             const x = 70 + idx * (colWidth + gap);
@@ -245,7 +263,7 @@ export default function DashboardContent() {
                                   fontWeight="600"
                                   fontFamily="inherit"
                                 >
-                                  {months[idx]}
+                                  {MONTHS[idx]}
                                 </text>
                               </g>
                             );
@@ -257,7 +275,7 @@ export default function DashboardContent() {
                 </Grid>
                 {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
                 <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid item xs={12} md={8}>
+                  <Grid xs={12} md={8}>
                     <CardPaper sx={{ p: 3.5, minHeight: 220, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
@@ -307,7 +325,7 @@ export default function DashboardContent() {
                             </text>
                           ))}
                           {/* X-axis labels */}
-                          {months.map((month, i) => (
+                          {MONTHS.map((month: string, i: number) => (
                             <text
                               key={month}
                               x={60 + i * 60}
@@ -329,7 +347,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid xs={12} md={4}>
                     <CardPaper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
@@ -374,7 +392,7 @@ export default function DashboardContent() {
                           </tr>
                         </thead>
                         <tbody>
-                          {topProducts.map((row, idx) => (
+                          {TOP_PRODUCTS.map((row: typeof TOP_PRODUCTS[number], idx: number) => (
                             <tr key={idx} style={{ background: 'none' }}>
                               <td style={{ padding: 8, color: theme.palette.text.primary, fontWeight: 500 }}>{row[0]}</td>
                               <td style={{ padding: 8, color: mode === 'dark' ? '#fff' : '#fbc02d', fontWeight: 500 }}>{row[1]}</td>
@@ -386,7 +404,7 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid xs={12} md={4}>
                     <CardPaper sx={{ p: 2.5, borderRadius: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Total Sales
@@ -498,7 +516,16 @@ export default function DashboardContent() {
                         <TableCell sx={{ color: theme.palette.text.secondary, background: mode === 'dark' ? '#222' : theme.palette.background.paper, fontWeight: 500, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>{order.date}</TableCell>
                         <TableCell sx={{ background: mode === 'dark' ? '#222' : theme.palette.background.paper, borderBottom: `1px solid ${mode === 'dark' ? '#333' : theme.palette.background.default}`, height: 56 }}>
                           <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
-                            <Box sx={{ px: 1.5, py: 0.5, borderRadius: 2, fontWeight: 700, fontSize: 13, color: '#fff', background: theme.palette[statusColor[order.status]]?.main || '#888', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                            <Box sx={{ px: 1.5, py: 0.5, borderRadius: 2, fontWeight: 700, fontSize: 13, color: '#fff', background: (() => {
+                              switch(order.status) {
+                                case 'In Progress': return '#1976d2';
+                                case 'Complete': return '#43a047';
+                                case 'Pending': return '#fb8c00';
+                                case 'Approved': return '#1976d2';
+                                case 'Rejected': return '#d32f2f';
+                                default: return '#888';
+                              }
+                            })(), boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
                               {order.status}
                             </Box>
                           </Box>
