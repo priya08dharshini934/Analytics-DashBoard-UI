@@ -47,27 +47,31 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
         variant="permanent"
         PaperProps={{
           sx: {
-            width: { xs: 70, sm: 200, md: 260 },
+            width: { xs: 76, sm: 220, md: 260 },
             boxSizing: 'border-box',
             background: theme.palette.background.default,
             color: theme.palette.text.primary,
             borderRight: `1px solid ${theme.palette.background.paper}`,
+            borderTopRightRadius: 24,
+            borderBottomRightRadius: 24,
+            boxShadow: '0 4px 24px 0 rgba(0,0,0,0.10)',
             transition: 'width 0.3s',
           },
         }}
-        sx={{ width: { xs: 70, sm: 200, md: 260 }, flexShrink: 0 }}
+        sx={{ width: { xs: 76, sm: 220, md: 260 }, flexShrink: 0 }}
       >
         {/* Sidebar header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', p: { xs: 1, sm: 2 }, pb: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', p: { xs: 1.5, sm: 2.5 }, pb: 0, mb: 1 }}>
           <Typography
             variant="h6"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xs: 16, sm: 20, md: 22 },
+              fontSize: { xs: 18, sm: 22, md: 24 },
               letterSpacing: 1,
               color: theme.palette.text.primary,
               flex: 1,
               textAlign: { xs: 'center', sm: 'left' },
+              textShadow: '0 2px 8px rgba(0,0,0,0.08)',
             }}
           >
             Bytwind
@@ -76,38 +80,44 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
         <Typography
           variant="body2"
           sx={{
-            px: { xs: 1, sm: 2 },
+            px: { xs: 1.5, sm: 2.5 },
             pb: 1,
             color: theme.palette.text.secondary,
-            fontSize: { xs: 12, sm: 14, md: 15 },
+            fontSize: { xs: 13, sm: 15, md: 16 },
             textAlign: { xs: 'center', sm: 'left' },
+            fontWeight: 500,
           }}
         >
           Home Page
         </Typography>
-        <Divider sx={{ background: theme.palette.background.paper }} />
-        <List sx={{ mt: 1, p: 0 }}>
+        <Divider sx={{ background: theme.palette.background.paper, mx: 2 }} />
+        <List sx={{ mt: 2, p: 0 }}>
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
               component="button"
               disabled={item.disabled}
               sx={{
-                p: { xs: '8px 8px', sm: '10px 24px' },
-                borderRadius: 2,
-                mb: 0.5,
+                p: { xs: '10px 10px', sm: '14px 28px' },
+                borderRadius: 3,
+                mb: 1.5,
                 opacity: item.disabled ? 0.5 : 1,
                 pointerEvents: item.disabled ? 'none' : 'auto',
-                background: activeTab === item.text ? theme.palette.background.paper : 'none',
+                background: activeTab === item.text ? (darkMode ? '#232326' : '#eaf6ff') : 'none',
                 color: item.disabled ? '#888' : theme.palette.text.primary,
                 fontWeight: activeTab === item.text ? 700 : 500,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1.5,
+                gap: 2,
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
-                boxShadow: activeTab === item.text ? `0 0 0 2px ${theme.palette.text.primary}` : 'none',
-                minHeight: { xs: 48, sm: 40 },
-                transition: 'background 0.2s',
+                boxShadow: activeTab === item.text ? '0 2px 12px 0 rgba(0,0,0,0.10)' : 'none',
+                minHeight: { xs: 52, sm: 44 },
+                border: activeTab === item.text ? `2px solid ${darkMode ? '#6fb3ff' : '#1976d2'}` : '2px solid transparent',
+                transition: 'background 0.2s, border 0.2s, box-shadow 0.2s',
+                '&:hover': {
+                  background: activeTab === item.text ? (darkMode ? '#232326' : '#eaf6ff') : (darkMode ? '#232326' : '#f5faff'),
+                  boxShadow: '0 2px 12px 0 rgba(0,0,0,0.10)',
+                },
               }}
               onClick={() => {
                 if (!item.disabled) {
@@ -115,13 +125,13 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
                 }
               }}
             >
-              <ListItemIcon sx={{ color: item.disabled ? '#888' : theme.palette.text.primary, minWidth: 32 }}>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: item.disabled ? '#888' : theme.palette.text.primary, minWidth: 32, mr: { xs: 0, sm: 1 } }}>{item.icon}</ListItemIcon>
               <ListItemText
                 primary={item.text}
                 primaryTypographyProps={{
                   sx: {
                     fontWeight: activeTab === item.text ? 700 : 500,
-                    fontSize: { xs: 13, sm: 15, md: 16 },
+                    fontSize: { xs: 15, sm: 17, md: 18 },
                     color: item.disabled ? '#888' : theme.palette.text.primary,
                     display: { xs: 'none', sm: 'block' },
                   },
@@ -130,26 +140,32 @@ export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProp
             </ListItem>
           ))}
         </List>
-        <Divider sx={{ background: theme.palette.background.paper, my: 2 }} />
+        <Divider sx={{ background: theme.palette.background.paper, my: 2, mx: 2 }} />
         <List sx={{ p: 0 }}>
           {pageItems.map((page) => (
             <ListItem
               key={page}
               component="button"
               sx={{
-                p: { xs: '6px 8px', sm: '8px 24px' },
+                p: { xs: '8px 10px', sm: '10px 28px' },
                 borderRadius: 2,
-                minHeight: { xs: 36, sm: 32 },
+                minHeight: { xs: 38, sm: 34 },
                 transition: 'background 0.2s',
                 display: { xs: 'none', sm: 'flex' },
+                fontWeight: 500,
+                color: theme.palette.text.secondary,
+                '&:hover': {
+                  background: darkMode ? '#232326' : '#f5faff',
+                  color: darkMode ? '#6fb3ff' : '#1976d2',
+                },
               }}
             >
               <ListItemText
                 primary={page}
                 primaryTypographyProps={{
                   sx: {
-                    fontSize: { xs: 12, sm: 14, md: 15 },
-                    color: theme.palette.text.secondary,
+                    fontSize: { xs: 13, sm: 15, md: 16 },
+                    color: 'inherit',
                   },
                 }}
               />
