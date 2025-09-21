@@ -18,7 +18,6 @@ interface SidebarProps {
   activeTab: string;
   onTabClick: (tab: string) => void;
   darkMode: boolean;
-  // setDarkMode: (mode: boolean) => void;
 }
 
 export default function Sidebar({ activeTab, onTabClick, darkMode }: SidebarProps) {
