@@ -44,15 +44,15 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
       </Box>
       {/* Mode toggle */}
       <IconButton onClick={() => setDarkMode(!darkMode)} sx={{ mx: 0.5 }}>
-        <Image src={darkMode ? '/light-mode.svg' : '/light-mode.svg'} alt="Mode" width={28} height={28} />
+        <Image src={darkMode ? '/dark-mode-button.svg' : '/light-mode.svg'} alt="Mode" width={28} height={28} />
       </IconButton>
       {/* Reset icon */}
       <IconButton sx={{ mx: 0.5 }}>
-        <Image src={darkMode ? '/light-reset.svg' : '/light-reset.svg'} alt="Reset" width={28} height={28} />
+        <Image src={darkMode ? '/reset-button.svg' : '/light-reset.svg'} alt="Reset" width={28} height={28} />
       </IconButton>
       {/* Notifications icon */}
       <IconButton sx={{ mx: 0.5 }}>
-        <Image src={darkMode ? '/light-notifications.svg' : '/light-notifications.svg'} alt="Notifications" width={28} height={28} />
+        <Image src={darkMode ? '/notifications-button.svg' : '/light-notifications.svg'} alt="Notifications" width={28} height={28} />
       </IconButton>
     </Box>
   );

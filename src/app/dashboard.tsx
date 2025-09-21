@@ -59,6 +59,8 @@ export default function DashboardContent() {
   const [search, setSearch] = useState('');
   const rowsPerPage = 8;
   const [page, setPage] = useState(1);
+  const [darkMode, setDarkMode] = useState(false);
+  const [activeTab, setActiveTab] = useState('Default');
   const filteredOrders = orders.filter(order => {
     const q = search.toLowerCase();
     return (
@@ -71,8 +73,6 @@ export default function DashboardContent() {
   });
   const paginatedOrders = filteredOrders.slice((page - 1) * rowsPerPage, page * rowsPerPage);
   const pageCount = Math.max(1, Math.ceil(filteredOrders.length / rowsPerPage));
-  const [darkMode, setDarkMode] = useState(false);
-  const [activeTab, setActiveTab] = useState('Default');
   const mode = darkMode ? 'dark' : 'light';
   const theme = createTheme({
     palette: {
@@ -93,7 +93,7 @@ export default function DashboardContent() {
   // Stat cards in correct order: Customers, Orders, Revenue, Growth
   const stats = [
     { label: "Customers", value: "3,781", delta: "+11.01%", color: "#6fb3ff" },
-    { label: "Orders", value: "1,219", delta: "-0.03%", color: "#ffd06b" },
+    { label: "Orders", value: "1,219", delta: "-0.03%", color: "#fff" },
     { label: "Revenue", value: "$695", delta: "+15.03%", color: "#9ef0c7" },
     { label: "Growth", value: "30.1%", delta: "+6.08%", color: "#ff6b6b" },
   ];
@@ -377,7 +377,7 @@ export default function DashboardContent() {
                           {topProducts.map((row, idx) => (
                             <tr key={idx} style={{ background: 'none' }}>
                               <td style={{ padding: 8, color: theme.palette.text.primary, fontWeight: 500 }}>{row[0]}</td>
-                              <td style={{ padding: 8, color: mode === 'dark' ? '#ffd06b' : '#fbc02d', fontWeight: 500 }}>{row[1]}</td>
+                              <td style={{ padding: 8, color: mode === 'dark' ? '#fff' : '#fbc02d', fontWeight: 500 }}>{row[1]}</td>
                               <td style={{ padding: 8, color: mode === 'dark' ? '#9ef0c7' : '#388e3c', fontWeight: 500 }}>{row[2]}</td>
                               <td style={{ padding: 8, color: theme.palette.text.primary, fontWeight: 700 }}>{row[3]}</td>
                             </tr>
@@ -400,7 +400,7 @@ export default function DashboardContent() {
                             {/* Affiliate */}
                             <path d="M28 30 a 16 16 0 0 1 -20 0" fill="none" stroke={mode === 'dark' ? '#b39ddb' : '#7c6ff9'} strokeWidth="4" />
                             {/* Sponsored */}
-                            <path d="M8 30 a 16 16 0 0 1 -6 -12" fill="none" stroke={mode === 'dark' ? '#ffd06b' : '#fbc02d'} strokeWidth="4" />
+                            <path d="M8 30 a 16 16 0 0 1 -6 -12" fill="none" stroke={mode === 'dark' ? '#fff' : '#fbc02d'} strokeWidth="4" />
                             {/* E-mail */}
                             <path d="M2 18 a 16 16 0 0 1 6 -12" fill="none" stroke={mode === 'dark' ? '#9ef0c7' : '#388e3c'} strokeWidth="4" />
                           </svg>
@@ -420,7 +420,7 @@ export default function DashboardContent() {
                             <Typography variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 400 }}>$135.18</Typography>
                           </Box>
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                            <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: mode === 'dark' ? '#ffd06b' : '#fbc02d', mr: 1 }} />
+                            <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: mode === 'dark' ? '#fff' : '#fbc02d', mr: 1 }} />
                             <Typography variant="body2" sx={{ color: mode === 'dark' ? '#fbc02d' : '#fbc02d', fontWeight: 700, mr: 1 }}>Sponsored</Typography>
                             <Typography variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 400 }}>$154.02</Typography>
                           </Box>

@@ -43,10 +43,8 @@ export default function Sidebar({ activeTab, onTabClick, darkMode, setDarkMode }
   });
 
   const menuItems = [
-  { text: 'Default', icon: <Image src={darkMode ? "/default-dark.svg" : "/default-light.svg"} alt="Default" width={24} height={24} />, disabled: false },
-  { text: 'eCommerce', icon: <Image src={darkMode ? "/ecommerce-dark.svg" : "/ecommerce-light.svg"} alt="eCommerce" width={24} height={24} />, disabled: false },
-  { text: 'Projects', icon: <Image src={darkMode ? "/dark-projects.svg" : "/light-project.svg"} alt="Projects" width={24} height={24} />, disabled: true },
-  { text: 'Online Courses', icon: <Image src={darkMode ? "/dark-onlinecource.svg" : "/light-onlinecource.svg"} alt="Online Courses" width={24} height={24} />, disabled: true },
+    { text: 'Default', icon: <Image src={darkMode ? "/default-dark.svg" : "/default-light.svg"} alt="Default" width={24} height={24} />, disabled: false },
+    { text: 'eCommerce', icon: <Image src={darkMode ? "/ecommerce-dark.svg" : "/ecommerce-light.svg"} alt="eCommerce" width={24} height={24} />, disabled: false },
   ];
   return (
     <ThemeProvider theme={theme}>
