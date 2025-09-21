@@ -139,19 +139,25 @@ export default function DashboardContent() {
             {/* --- eCommerce Tab --- */}
             {activeTab === "eCommerce" ? (
               <>
-                {/* Dashboard content as before */}
                 {/* Header */}
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <Typography variant="h5" sx={{ color: theme.palette.text.primary, fontWeight: 800, flex: 1 }}>
                     eCommerce
                   </Typography>
                 </Box>
-                {/* Top row: Stat cards and Projections vs Actuals */}
-                <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
-                  <Box sx={{ display: 'flex', flex: 2, gap: 2 }}>
-                    {STATS.map((stat: typeof STATS[number]) => (
-                      <Box key={stat.label} sx={{ flex: 1, minWidth: 180 }}>
-                        <CardPaper sx={{ p: 3, borderRadius: 2.5 }}>
+                {/* Responsive Top Row: Stat cards 2x2 grid (left), Projections (right) */}
+                <Box sx={{ display: 'flex', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 2, mb: 1 }}>
+                  <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                    gridTemplateRows: { xs: 'repeat(4, 1fr)', sm: '1fr 1fr' },
+                    gap: 2,
+                    flex: 2,
+                    minWidth: 0,
+                  }}>
+                    {STATS.map((stat: typeof STATS[number], idx: number) => (
+                      <Box key={stat.label} sx={{ minWidth: 160 }}>
+                        <CardPaper sx={{ p: 3, borderRadius: 2.5, height: '100%' }}>
                           <Typography sx={{ fontSize: 13, fontWeight: 800, color: theme.palette.text.secondary }}>{stat.label}</Typography>
                           <Typography sx={{ fontSize: 28, fontWeight: 900, mt: 0.5, color: theme.palette.text.primary }}>{stat.value}</Typography>
                           <Typography sx={{ fontSize: 12, color: stat.color, mt: 0.5 }}>{stat.delta}</Typography>
@@ -159,19 +165,20 @@ export default function DashboardContent() {
                       </Box>
                     ))}
                   </Box>
-                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
+                  <Box sx={{ flex: 1, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column' }}>
                     <CardPaper
                       sx={{
                         px: 4.5,
                         py: 3.5,
                         background: mode === 'dark' ? '#232326' : '#fff',
                         borderRadius: 2.2,
-                        height: 230,
+                        height: '100%',
                         color: mode === 'dark' ? '#fff' : '#222',
                         overflow: 'hidden',
                         display: 'flex',
                         flexDirection: 'column',
                         boxShadow: '0 2px 16px 0 rgba(0,0,0,0.12)',
+                        minHeight: { xs: 230, md: 230 },
                       }}
                     >
                       <Typography
@@ -262,10 +269,11 @@ export default function DashboardContent() {
                     </CardPaper>
                   </Box>
                 </Box>
-                {/* Middle row: Revenue chart (left), Revenue by Location and Total Sales (right) */}
-                <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
-                  <Box sx={{ flex: 2 }}>
-                    <CardPaper sx={{ p: 3.5, minHeight: 220, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2 }}>
+                {/* Middle and Right Columns: Revenue chart (2 rows tall), Revenue by Location (top right), Total Sales (bottom right) */}
+                <Box sx={{ display: 'flex', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 2, mb: 1 }}>
+                  {/* Left: Revenue chart, spans 2 rows */}
+                  <Box sx={{ flex: 2, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'stretch' }}>
+                    <CardPaper sx={{ p: 3.5, minHeight: 340, background: mode === 'dark' ? '#18181b' : '#fff', borderRadius: 2.2, flex: 1 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 17 }}>
                           Revenue
@@ -281,7 +289,7 @@ export default function DashboardContent() {
                           </Box>
                         </Box>
                       </Box>
-                      <Box sx={{ position: 'relative', height: 180, width: '100%' }}>
+                      <Box sx={{ position: 'relative', height: 220, width: '100%' }}>
                         <svg viewBox="0 0 420 160" width="100%" height="100%" preserveAspectRatio="none">
                           {/* Grid lines */}
                           {[0, 1, 2, 3].map((i) => {
@@ -336,8 +344,9 @@ export default function DashboardContent() {
                       </Box>
                     </CardPaper>
                   </Box>
-                  <Box sx={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
-                    <CardPaper sx={{ p: 2, borderRadius: 3, mb: 2 }}>
+                  {/* Right: Revenue by Location (top), Total Sales (bottom) stacked */}
+                  <Box sx={{ flex: 1, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <CardPaper sx={{ p: 2, borderRadius: 3 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: theme.palette.text.secondary, fontWeight: 700 }}>
                         Revenue by Location
                       </Typography>
@@ -363,7 +372,7 @@ export default function DashboardContent() {
                     </CardPaper>
                   </Box>
                 </Box>
-                {/* Bottom row: Top Selling Products (left), Total Sales (right) */}
+                {/* Bottom row: Top Selling Products (left), Total Sales (right) - unchanged */}
                 <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
                   <Box sx={{ flex: 2 }}>
                     <CardPaper sx={{ p: 3, mt: 0 }}>
